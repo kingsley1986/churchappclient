@@ -30,7 +30,7 @@ export default class PostAndComments extends Component {
 
 
     componentDidMount() {
-        axios.get('http://localhost:9000/posts/'+this.props.match.params.id+"/comments")
+        axios.get('https://cryptic-shelf-72177.herokuapp.com/posts/'+this.props.match.params.id+"/comments")
         .then(response => {
             this.setState({post: response.data})
             this.setState({comments: response.data.comments})
@@ -54,7 +54,7 @@ export default class PostAndComments extends Component {
         };
         
         
-        axios.post('http://localhost:9000/posts/'+this.props.match.params.id+'/comment', data)
+        axios.post('https://cryptic-shelf-72177.herokuapp.com/posts/'+this.props.match.params.id+'/comment', data)
         .then(res => {
             this.setState({
                 name: '',
@@ -63,7 +63,7 @@ export default class PostAndComments extends Component {
                 this.props.history.push('/posts/'+this.props.match.params.id+'/comments');
                 console.log("Comment Created");
                 
-              axios.get('http://localhost:9000/posts/'+this.props.match.params.id+"/comments")
+              axios.get('https://cryptic-shelf-72177.herokuapp.com/posts/'+this.props.match.params.id+"/comments")
                 .then(response => {
                    this.setState({post: response.data})
                    this.setState({comments: response.data.comments})

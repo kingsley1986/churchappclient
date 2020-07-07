@@ -27,7 +27,7 @@ export default class PostsList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:9000/posts/')
+        axios.get('https://cryptic-shelf-72177.herokuapp.com/posts/')
         .then(response => {
             this.setState({posts: response.data})
 
