@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PostsList from "./components/posts-list.component";
 import PostAndComments from "./components/post-comments.component";
-import CreateComments from "./components/post-comments.component";
+import EventsList from "./components/events-list.component";
+import EventAndComments from "./components/event-comments.component";
+
 
 class App  extends Component {
   render() {
@@ -21,7 +23,10 @@ class App  extends Component {
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav mr-auto">
                 <li className="navbar-item">
-                  <Link to="/posts" className="nav-link">Todos</Link>
+                  <Link to="/posts" className="nav-link">Posts</Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/events" className="nav-link">Events</Link>
                 </li>
                 <li className="navbar-item">
                   <Link to="/create" className="nav-link"> Create Todo</Link>
@@ -30,7 +35,9 @@ class App  extends Component {
             </div>
           </nav>
           <Route path="/posts" exact component={PostsList} />
+          <Route path="/events" exact component={EventsList} />
           <Route path="/posts/:id/comments" exact component={PostAndComments} />
+          <Route path="/events/:id/eventcomments" exact component={EventAndComments} />
         </div>
       </Router>
     );
