@@ -1,12 +1,13 @@
-.fa.fa-user, .fa.fa-clock-o {
-    padding-right: 10px;
-    color: #d61010;
-    font-size: 11px;
+.fa.fa-user,
+.fa.fa-clock-o {
+  padding-right: 10px;
+  color: #d61010;
+  font-size: 11px;
 }
 
-.post-image { 
-  height: 250px; 
-  overflow: hidden; 
+.post-image {
+  height: 250px;
+  overflow: hidden;
 }
 .post-title {
   font-weight: 900;
@@ -17,4 +18,8 @@
 .post-description {
   font-size: 15px;
   padding-top: 20px;
+}
+
+#my_with {
+  display: none;
 }

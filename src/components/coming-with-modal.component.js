@@ -1,12 +1,64 @@
 import React, { Component } from "react";
 import { Modal, Button, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default class AddComingWithModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      coming_with: "",
+    };
+  }
+
+  onItemClick = (event) => {
+    document.querySelector("#my_with").style.display = "block";
+    document.querySelector(".columnContainer").style.display = "none";
+
+    var myArray = ["1", "2", "3", "4", "5"];
+    // Get dropdown element from DOM
+    var dropdown = document.getElementById("chooseNumber");
+
+    // Loop through the array
+    for (var i = 0; i < myArray.length; ++i) {
+      // Append the element to the end of Array list
+      dropdown[dropdown.length] = new Option(myArray[i], myArray[i]);
+    }
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      coming_with: this.state.coming_with,
+    };
+
+    axios
+      .post(
+        "http://localhost:9000/events/" + this.props.state + "/coming_with",
+        data
+      )
+      .then((res) => {
+        this.setState({
+          coming_with: "",
+        });
+        this.props.history.push("/events/" + this.props.state + "/coming_with");
+        console.log("Comment Created");
+      })
+      .catch((err) => {
+        console.log("Error in CreateBook!");
+      });
+  };
+
   render() {
     return (
       <Modal
         {...this.props}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -17,7 +69,59 @@ export default class AddComingWithModal extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className="container"></div>
-          Are you coming with someone?
+          <div>Are you coming with Somone?</div>
+
+          <div className="columnContainer">
+            <button
+              onClick={this.onItemClick}
+              type="button"
+              id="yes"
+              className="btn btn-success col-md-4 col-md-offset-1"
+            >
+              Yes
+            </button>
+            <button
+              type="button"
+              id="no"
+              className="btn btn-info col-md-4 col-md-offset-1"
+            >
+              No
+            </button>
+          </div>
+
+          {/* <form
+            action="/events/<%=event.id%>/coming_with"
+            method="POST"
+            id="my_with"
+          >
+            <select name="coming_with" id="chooseNumber">
+              <option>Choose a number</option>
+            </select>
+            <button id="send_coming_with" type="submit">
+              send
+            </button>
+          </form> */}
+
+          <form noValidate onSubmit={this.onSubmit} id="my_with">
+            <div className="form-group">
+              <select
+                name="coming_with"
+                id="chooseNumber"
+                className="form-control"
+                value={this.state.coming_with}
+                onChange={this.onChange}
+              >
+                <option>Choose a number</option>
+              </select>
+            </div>
+            <button
+              className="btn btn-success"
+              id="send_coming_with"
+              type="submit"
+            >
+              send
+            </button>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={this.props.onHide}>
