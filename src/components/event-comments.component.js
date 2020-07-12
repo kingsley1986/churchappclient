@@ -164,6 +164,7 @@ export default class EventAndComments extends Component {
                   show={this.state.addModalshow}
                   onHide={addModalClose}
                   state={this.state.event._id}
+                  props={this.props.history}
                 />
               </ButtonToolbar>
               <div>{commentLengt}</div>

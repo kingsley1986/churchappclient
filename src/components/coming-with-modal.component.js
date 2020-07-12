@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import EventAndComments from "../components/event-comments.component";
 
 export default class AddComingWithModal extends Component {
   constructor(props) {
@@ -46,7 +47,9 @@ export default class AddComingWithModal extends Component {
         this.setState({
           coming_with: "",
         });
-        this.props.history.push("/events/" + this.props.state + "/coming_with");
+        this.props.history.push(
+          "/events/" + this.props.state + "/eventcomments"
+        );
         console.log("Comment Created");
       })
       .catch((err) => {
@@ -64,43 +67,30 @@ export default class AddComingWithModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Thank you for Coming
+            Thank you for Coming. God Bless you
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container"></div>
-          <div>Are you coming with Somone?</div>
+          <div style={{ textAlign: "center" }}>Are you coming with Somone?</div>
 
-          <div className="columnContainer">
+          <div className="columnContainer" style={{ textAlign: "center" }}>
             <button
               onClick={this.onItemClick}
               type="button"
               id="yes"
-              className="btn btn-success col-md-4 col-md-offset-1"
+              className="btn btn-success mr-3 col-md-5 col-md-offset-1"
             >
               Yes
             </button>
             <button
               type="button"
               id="no"
-              className="btn btn-info col-md-4 col-md-offset-1"
+              className="btn btn-info col-md-5 col-md-offset-1"
             >
               No
             </button>
           </div>
-
-          {/* <form
-            action="/events/<%=event.id%>/coming_with"
-            method="POST"
-            id="my_with"
-          >
-            <select name="coming_with" id="chooseNumber">
-              <option>Choose a number</option>
-            </select>
-            <button id="send_coming_with" type="submit">
-              send
-            </button>
-          </form> */}
 
           <form noValidate onSubmit={this.onSubmit} id="my_with">
             <div className="form-group">
