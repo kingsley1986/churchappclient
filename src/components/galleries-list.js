@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactTimeAgo from "react-time-ago";
 
-const Post = (props) => (
+const Gallery = (props) => (
   <div>
     <link
       href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
@@ -31,59 +31,41 @@ const Post = (props) => (
         style={{ background: "white" }}
       >
         <h2 className="post-title">
-          <Link to={"/posts/" + props.post._id + "/comments"}>
-            {props.post.title}
+          <Link to={"/galleries/" + props.gallery._id}>
+            {props.gallery.title}
           </Link>
         </h2>
         <br></br>
         <div className="post-image">
-          <Link to={"/posts/" + props.post._id + "/comments"}>
-            <img src={props.post.postImage} alt="" width="100%" />
+          <Link to={"/galleries/" + props.gallery._id}>
+            <img src={props.gallery.galleryImage} alt="" width="100%" />
           </Link>
-        </div>
-        <div className="post-description">
-          {props.post.description.substring(0, 300)}
-        </div>
-        <a href="#">Read More</a>
-        <div className="col-lg-12 col-xs-12">
-          <div className="blog-column">
-            <ul className="blog-detail list-inline">
-              <br></br>
-              <li>
-                from: <i className="fa fa-user" /> {props.post.from}{" "}
-                <span>
-                  <i className="fa fa-clock-o" />
-                </span>{" "}
-                <ReactTimeAgo date={props.post.createdAt} />{" "}
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
   </div>
 );
 
-export default class PostsList extends Component {
+export default class GalleryList extends Component {
   constructor(props) {
     super(props);
-    this.state = { posts: [] };
+    this.state = { galleries: [] };
   }
 
   componentDidMount() {
     axios
-      .get("https://cryptic-shelf-72177.herokuapp.com/posts/")
+      .get("https://cryptic-shelf-72177.herokuapp.com/galleries/")
       .then((response) => {
-        this.setState({ posts: response.data });
+        this.setState({ galleries: response.data });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  postList() {
-    return this.state.posts.map(function (currentPost, i) {
-      return <Post post={currentPost} key={i} />;
+  galleryList() {
+    return this.state.galleries.map(function (currentGallery, i) {
+      return <Gallery gallery={currentGallery} key={i} />;
     });
   }
 
@@ -96,7 +78,7 @@ export default class PostsList extends Component {
               <div className="col-lg-6 col-lg-offset-3 text-center">
                 <h2>
                   <span className="ion-minus" />
-                  Blog Posts
+                  Image galleries
                   <span className="ion-minus" />
                 </h2>
                 <p>
@@ -114,7 +96,7 @@ export default class PostsList extends Component {
                 data-aos="fade-right"
                 style={{ background: "red" }}
               >
-                {this.postList()}
+                {this.galleryList()}
               </div>
             </div>
           </div>

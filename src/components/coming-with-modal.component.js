@@ -33,6 +33,9 @@ export default class AddComingWithModal extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    document.querySelector("#my_with").style.display = "none";
+    document.querySelector(".coming_with_someone").style.display = "none";
+    document.querySelector(".containerthanks").style.display = "block";
 
     const data = {
       coming_with: this.state.coming_with,
@@ -50,7 +53,7 @@ export default class AddComingWithModal extends Component {
         this.props.history.push(
           "/events/" + this.props.state + "/eventcomments"
         );
-        console.log("Comment Created");
+        console.log("Comment coming with Created");
       })
       .catch((err) => {
         console.log("Error in CreateBook!");
@@ -71,8 +74,12 @@ export default class AddComingWithModal extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="container"></div>
-          <div style={{ textAlign: "center" }}>Are you coming with Somone?</div>
+          <div className="containerthanks" style={{ display: "none" }}>
+            Thank you for bringing someone, please close
+          </div>
+          <div className="coming_with_someone" style={{ textAlign: "center" }}>
+            Are you coming with Somone?
+          </div>
 
           <div className="columnContainer" style={{ textAlign: "center" }}>
             <button

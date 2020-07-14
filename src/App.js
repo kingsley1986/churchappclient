@@ -6,7 +6,7 @@ import PostsList from "./components/posts-list.component";
 import PostAndComments from "./components/post-comments.component";
 import EventsList from "./components/events-list.component";
 import EventAndComments from "./components/event-comments.component";
-import AddComingWithModal from "./components/coming-with-modal.component";
+import GalleryList from "./components/galleries-list";
 
 class App extends Component {
   render() {
@@ -34,6 +34,11 @@ class App extends Component {
                   </Link>
                 </li>
                 <li className="navbar-item">
+                  <Link to="/galleries" className="nav-link">
+                    Image Gallery
+                  </Link>
+                </li>
+                <li className="navbar-item">
                   <Link to="/create" className="nav-link">
                     {" "}
                     Create Todo
@@ -44,16 +49,12 @@ class App extends Component {
           </nav>
           <Route path="/posts" exact component={PostsList} />
           <Route path="/events" exact component={EventsList} />
+          <Route path="/galleries" exact component={GalleryList} />
           <Route path="/posts/:id/comments" exact component={PostAndComments} />
           <Route
             path="/events/:id/eventcomments"
             exact
             component={EventAndComments}
-          />
-          <Route
-            path="/events/:id/coming_with"
-            exact
-            component={AddComingWithModal}
           />
         </div>
       </Router>

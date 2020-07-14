@@ -29,6 +29,22 @@ export default class EventAndComments extends Component {
       addModalshow: false,
     };
   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.event === this.state.event) {
+      axios
+        .get(
+          "http://localhost:9000/events/" +
+            this.props.match.params.id +
+            "/eventcomments"
+        )
+        .then((response) => {
+          this.setState({ event: response.data });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
 
   updateGoing = (going) => {
     axios
@@ -37,15 +53,6 @@ export default class EventAndComments extends Component {
       )
       .then((response) => {
         this.setState({ event: response.data });
-      });
-
-    axios
-      .get("http://localhost:9000/events/" + this.props.match.params.id)
-      .then((response) => {
-        this.setState({ event: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
       });
   };
 
@@ -164,7 +171,7 @@ export default class EventAndComments extends Component {
                   show={this.state.addModalshow}
                   onHide={addModalClose}
                   state={this.state.event._id}
-                  props={this.props.history}
+                  history={this.props.history}
                 />
               </ButtonToolbar>
               <div>{commentLengt}</div>
