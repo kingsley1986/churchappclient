@@ -9,7 +9,7 @@ const Event = (props) => (
         <img src={props.event.eventImage} />
         <div className="text">
           <h1>{props.event.title}</h1>
-          <h2 className="animate-text">More lorem ipsum bacon ipsum.</h2>
+          <h2 className="animate-text">More lorem ipsum bacon ipsum here.</h2>
           <p className="animate-text">{props.event.description}</p>
           <div className="dots">
             <span />
