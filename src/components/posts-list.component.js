@@ -72,7 +72,7 @@ export default class PostsList extends Component {
 
   componentDidMount() {
     axios
-      .get("https://cryptic-shelf-72177.herokuapp.com/posts/")
+      .get("http://localhost:9000/posts/")
       .then((response) => {
         this.setState({ posts: response.data });
       })
