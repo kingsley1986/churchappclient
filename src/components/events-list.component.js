@@ -1,16 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 
-export default class EventsList extends Component {
+const useStyles = (theme) => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    width: 1000,
+    height: 950,
+  },
+  icon: {
+    color: "rgba(255, 255, 255, 0.54)",
+  },
+});
+
+class EventsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = { events: [] };
@@ -28,22 +46,10 @@ export default class EventsList extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div
-        className="root"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          overflow: "hidden",
-        }}
-      >
-        <GridList
-          cellHeight={330}
-          className="gridlist"
-          style={{ width: "500", height: "450" }}
-          spacing={8}
-        >
+      <div className={classes.root}>
+        <GridList cellHeight={330} className={classes.gridList} spacing={8}>
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
             <ListSubheader component="div">December</ListSubheader>
           </GridListTile>
@@ -52,18 +58,13 @@ export default class EventsList extends Component {
               <img src={tile.eventImage} alt={tile.title} />
               <GridListTileBar
                 title={tile.title}
-                titlePosition="top"
+                subtitle={<span>by: {tile.author}</span>}
                 actionIcon={
                   <IconButton
                     aria-label={`info about ${tile.title}`}
-                    className="icon"
-                    style={{ color: "rgba(255, 255, 255, 0.54)" }}
+                    className={classes.icon}
                   ></IconButton>
                 }
-              />
-              <GridListTileBar subtitle={<span></span>} />
-              <GridListTileBar
-                subtitle={<span>From: {tile.startingDate}</span>}
               />
             </GridListTile>
           ))}
@@ -72,3 +73,5 @@ export default class EventsList extends Component {
     );
   }
 }
+
+export default withStyles(useStyles)(EventsList);
