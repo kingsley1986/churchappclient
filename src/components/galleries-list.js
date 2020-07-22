@@ -105,3 +105,38 @@ export default class GalleryList extends Component {
     );
   }
 }
+
+{
+  /* <div>
+  <section>
+    <article>
+      <div className="box head">
+        <a className="box image" href>
+          <img src={props.event.eventImage} alt="" />
+        </a>
+
+        <h4>
+          By <span>Cyndie Sound</span> on <time>Apr 1st, 2015</time>
+        </h4>
+      </div>
+      <h2>
+        <a href>{props.event.title}</a>
+      </h2>
+      <div className="box body">
+        <p>{props.event.description}</p>
+        <a href className="more">
+          Read more
+        </a>
+      </div>
+      <div className="box foot">
+        <a href>
+          <i className="fa fa-comment-o" /> 120 comments{" "}
+        </a>
+        <a href>
+          <i className="fa fa-share" />
+        </a>
+      </div>
+    </article>
+  </section>
+</div>; */
+}
