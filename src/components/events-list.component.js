@@ -8,6 +8,9 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import moment from "moment";
 
 export default function EventsList() {
   const theme = useTheme();
@@ -52,18 +55,31 @@ export default function EventsList() {
           tileData.map((tile, index) => {
             return (
               <GridListTile
+                component={Link}
+                to={"/events/" + tile._id + "/eventcomments"}
                 key={Math.floor(Math.random() * new Date().getTime())}
               >
                 <img src={tile.eventImage} alt={tile.title} />
+                <GridListTileBar titlePosition="top" />
                 <GridListTileBar
+                  titlePosition="top"
                   title={tile.title}
-                  subtitle={<span>by: {tile.author}</span>}
-                  actionIcon={
-                    <IconButton
-                      aria-label={`info about ${tile.title}`}
-                      className={classes.icon}
-                    />
-                  }
+                  style={{ fontSize: "9px" }}
+                />
+                <GridListTileBar
+                  style={{
+                    marginBottom: "60px",
+                  }}
+                />
+                <GridListTileBar
+                  title={moment(tile.startingDate).format("LLLL")}
+                  style={{
+                    marginBottom: "60px",
+                  }}
+                />
+                <GridListTileBar />
+                <GridListTileBar
+                  title={moment(tile.closingDate).format("LLLL")}
                 />
               </GridListTile>
             );
