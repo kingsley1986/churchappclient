@@ -23,3 +23,8 @@
 #my_with {
   display: none;
 }
+.MuiCardHeader-content span {
+  color: black;
+  font-size: 18px;
+  font-weight: bolder;
+}
