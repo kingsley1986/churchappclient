@@ -107,7 +107,6 @@ export default function EventsList() {
               style={{
                 marginBottom: "2rem",
                 textDecoration: "none",
-                // height: "497px",
               }}
               component={Link}
               to={"/events/" + event._id + "/eventcomments"}
