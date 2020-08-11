@@ -25,7 +25,7 @@ export default function EventsList() {
       maxWidth: "auto",
     },
     media: {
-      height: 350,
+      // height: 300,
       paddingTop: "56.25%", // 16:9
       // height: "100%",
       display: "flex",
@@ -45,11 +45,15 @@ export default function EventsList() {
     avatar: {
       backgroundColor: red[500],
     },
+    cardheader: {
+      fontSize: "1.6em",
+      fontWeight: "bolder",
+    },
   }));
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/events/")
+      .get("https://cryptic-shelf-72177.herokuapp.com/events")
       .then((response) => {
         setTileData([...response.data]);
       })
@@ -60,6 +64,35 @@ export default function EventsList() {
   const matches = useMediaQuery(theme.breakpoints.down("xs"));
   const classes = useStyles();
 
+  const nowIso = new Date();
+  const getTitle = (startDateTs, endDateTs) => {
+    const now = Date.parse(nowIso);
+
+    if (endDateTs <= now) {
+      return "Started:" + " " + moment(startDateTs).format("lll");
+    }
+
+    if (startDateTs < now && endDateTs > now) {
+      return "Live:" + " " + moment(startDateTs).format("lll");
+    }
+
+    return "Starting:" + " " + moment(startDateTs).format("lll");
+  };
+
+  const getEnded = (startDateTs, endDateTs) => {
+    const now = Date.parse(nowIso);
+
+    if (endDateTs <= now) {
+      return "Ended:" + " " + moment(startDateTs).format("lll");
+    }
+
+    if (startDateTs < now && endDateTs > now) {
+      return "Will End:" + " " + moment(startDateTs).format("lll");
+    }
+
+    return "Ends:" + " " + moment(startDateTs).format("lll");
+  };
+
   return (
     <div className={classes.root}>
       <GridList
@@ -68,12 +101,16 @@ export default function EventsList() {
         spacing={12}
         cols={matches ? 1 : 3}
       >
-        {tileData.map((name, key) => {
+        {tileData.map((event, key) => {
           return (
             <Card
-              style={{ paddingBottom: "550px" }}
+              style={{
+                marginBottom: "2rem",
+                textDecoration: "none",
+                // height: "497px",
+              }}
               component={Link}
-              to={"/events/" + name._id + "/eventcomments"}
+              to={"/events/" + event._id + "/eventcomments"}
               key={Math.floor(Math.random() * new Date().getTime())}
             >
               <h3
@@ -82,35 +119,40 @@ export default function EventsList() {
                   color: "white",
                   textAlign: "center",
                 }}
+                className={classes.cardheader}
               >
-                {name.title}
+                {event.title}
               </h3>
 
               <CardHeader
                 avatar={
                   <Avatar aria-label="recipe" className={classes.avatar}>
-                    R
+                    CB
                   </Avatar>
                 }
-                title={"Starts:" + " " + moment(name.staringDate).format("lll")}
-                subheader={
-                  "Ends:" + " " + moment(name.closingDate).format("lll")
-                }
+                title={getTitle(
+                  Date.parse(event.startingDate),
+                  Date.parse(event.closingDate)
+                )}
+                subheader={getEnded(
+                  Date.parse(event.startingDate),
+                  Date.parse(event.closingDate)
+                )}
                 style={{ background: "#DCDCDC" }}
               />
               <CardMedia
                 className={classes.media}
-                image={name.eventImage}
+                image={event.eventImage}
                 title="Paella dish"
               />
               <CardContent>
                 <Typography
-                  style={{ color: "black" }}
+                  style={{ color: "black", fontSize: "17px" }}
                   variant="body2"
                   color="textSecondary"
                   component="p"
                 >
-                  {name.description.substring(0, 100)}
+                  {event.description.substring(0, 100)}....
                 </Typography>
               </CardContent>
             </Card>
